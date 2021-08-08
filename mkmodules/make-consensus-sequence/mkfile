@@ -1,0 +1,20 @@
+MKSHELL="/bin/bash"
+
+# make consensus sequence
+%.fa.consensus:Q: %.vcf.gz.tmp
+	fastas=$(find -L . -type f -name "*.fa")
+	for fasta in $fastas
+	do
+		fasta_chrom=$(echo ${fasta//[^0-9]/})
+		vcf_chrom=$(echo ${prereq//[^0-9]/})
+		if [ $fasta_chrom == $vcf_chrom ]
+		then
+		echo "[DEBUG] Creando secuencia consenso de $fasta a partir de $prereq"
+		cat $fasta | bcftools consensus $prereq > $target
+		fi
+	done
+# filter vcf file
+%.vcf.gz.tmp:Q: %.vcf
+	echo "[DEBUG] filtrando $prereq"
+	bcftools norm -m+ $prereq | bcftools view -m2 -M2 -v snps |	bgzip -c > $target
+	bcftools index $target

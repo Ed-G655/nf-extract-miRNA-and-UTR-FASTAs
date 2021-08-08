@@ -1,0 +1,11 @@
+MKSHELL="/bin/bash"
+
+# Extract FASTA reference sequences from bed data
+%.mirref:Q: %.fa
+	echo "[DEBUG] Change DNA to RNA"
+	less -s $prereq | tr "T" "U" > $stem.tmp
+	bed=$(find -L . -type f -name "*.bed")
+	echo "[DEBUG] Processing bed: $bed"
+	tail -n +2 $bed | cut -f 1-6  > $bed.tmp
+	echo "[DEBUG] Extracting $prereq into $target"
+	bedtools getfasta -fi $stem.tmp -bed $bed.tmp -name -s -fo $target
