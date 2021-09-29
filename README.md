@@ -1,8 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
 
 # nf-extract-miRNA-and-UTR-FASTAs
 
