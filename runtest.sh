@@ -6,7 +6,7 @@ output_directory="$(dirname $mirnabed)/results"
 
 echo -e "======\n Testing NF execution \n======" \
 && rm -rf $output_directory \
-&& nextflow run extract-sequences.nf \
+&& nextflow run extract-sequences_main.nf \
 	--mirnabed $mirnabed \
   --utrbed $utrbed \
 	--vcf $vcf \

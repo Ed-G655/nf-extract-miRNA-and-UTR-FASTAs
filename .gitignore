@@ -18,7 +18,7 @@ mkmodules/*/test/results/*
 test/data/*/intermediate/
 test/data/*/logs/
 test/results*
-
+test/data/results/*
 
 ## ignore local R datas
 *.Rdata
