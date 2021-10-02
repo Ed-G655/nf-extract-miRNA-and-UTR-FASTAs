@@ -322,39 +322,48 @@ include {  _pre1_split_chromosomes;
 workflow  {
 						// PRE 1: Split VCF file
 						_pre1_split_chromosomes(
-																		vcf_input,
-																		mk_files)
+									vcf_input,
+									mk_files)
+									
 						// PŔE 2: Make consensus FASTA sequence
 						_pre2_make_consensus_sequence(
-																					_pre1_split_chromosomes.out,
-																					fasta_input,
-																					mkfiles_pre2)
+										_pre1_split_chromosomes.out,
+										fasta_input,
+										mkfiles_pre2)
+										
 						// COre 1A: Extract miRNA FASTA reference sequences
 						_001A_extract_mirna_FASTA_ref(
-																					fasta_input,
-																					mirnabed_input,
-																					mkfiles_001A)
+										fasta_input,
+										mirnabed_input,
+										mkfiles_001A)
+										
 						// Core 1B: Extract miRNA FASTA mutate sequences
 						_001B_extract_mirna_FASTA_mut(
-																					_pre2_make_consensus_sequence.out,
-																					mirnabed_input,
-																					mkfiles_001B)
+										_pre2_make_consensus_sequence.out,
+										mirnabed_input,
+										mkfiles_001B)
+										
 						// Core 2A: Extract UTR FASTA reference sequences
 						_002A_extract_utr_FASTA_ref(
-																				fasta_input,
-																				utrbed_input,
-																				mkfiles_002A)
+										fasta_input,
+										utrbed_input,
+										mkfiles_002A)
+										
 						// Core 2B: Extract UTR FASTA mutate sequences
 						_002B_extract_utr_FASTA_mut(
-																				_pre2_make_consensus_sequence.out,
-																				utrbed_input,
-																				mkfiles_002B)
+										_pre2_make_consensus_sequence.out,
+										utrbed_input,
+										mkfiles_002B)
+										
 						// Pos 1A: Merge miRNA reference utr_FASTAs
 						_01A_merge_mirref_fastas(_001A_extract_mirna_FASTA_ref.out)
+						
 						// Pos 2A: Merge UTR reference FASTAs
 						_02A_merge_utrref_fastas(_002A_extract_utr_FASTA_ref.out)
+						
 						// Pos !B: Merge miRNA mutate FASTAs
 						_01B_merge_mirmut_fastas(_001B_extract_mirna_FASTA_mut.out)
+						
 						// POs 2B: Merge UTR mutate FASTAs
 						_02B_merge_utrmut_fastas(_002B_extract_utr_FASTA_mut.out)
 
